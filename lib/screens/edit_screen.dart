@@ -22,7 +22,7 @@ class EditScreen extends StatelessWidget {
   }
 }
     """;
-    GraphQLService().performQuery(insert, variables: {});
+    AppRepository().performQuery(insert, variables: {});
     return Scaffold(
       appBar: AppBar(
         title: const Align(

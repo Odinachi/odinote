@@ -1,10 +1,10 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:odinote/service/graph_ql_interface.dart';
 
-class GraphQLService implements GraphQlInterface {
+class AppRepository implements RepopsitoryInterface {
   GraphQLClient? _client;
 
-  GraphQLService() {
+  AppRepository() {
     HttpLink link = HttpLink(
       'https://todolistassessment.hasura.app/v1/graphql',
       defaultHeaders: {
@@ -26,6 +26,7 @@ class GraphQLService implements GraphQlInterface {
 
     final result = await _client!.query(options);
     print("result is ${result}");
+    print("result is ${result.hasException}");
 
     return result;
   }

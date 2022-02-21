@@ -32,6 +32,7 @@ dependencies:
 
   graphql_flutter: 5.0.1
   flutter_bloc: 8.0.1
+  tuple: ^2.0.0
   gap:
 
 
