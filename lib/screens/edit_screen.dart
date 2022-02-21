@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:odinote/service/graph_ql.dart';
 
 class EditScreen extends StatelessWidget {
   EditScreen({Key? key}) : super(key: key);
@@ -9,20 +8,6 @@ class EditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const insert = """
-    mutation InsertTask(\$description: String!, \$developer_id: String!, \$title: String!) {
-  insert_tasks_one(object: {title: \$title, developer_id: \$developer_id, description: \$description}) {
-    created_at
-    description
-    developer_id
-    id
-    isCompleted
-    title
-    updated_at
-  }
-}
-    """;
-    AppRepository().performQuery(insert, variables: {});
     return Scaffold(
       appBar: AppBar(
         title: const Align(

@@ -3,8 +3,9 @@ import 'package:odinote/models/get_all_task.dart';
 import 'package:odinote/models/new_task_response.dart';
 import 'package:odinote/models/update_response.dart';
 import 'package:odinote/service/app_service_interface.dart';
-import 'package:odinote/service/graph_ql.dart';
 import 'package:tuple/tuple.dart';
+
+import 'app_repository.dart';
 
 class AppService implements AppServiceInterface {
   final AppRepository _appRepository = AppRepository();

@@ -1,5 +1,5 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:odinote/service/graph_ql_interface.dart';
+import 'package:odinote/service/app_repository_interface.dart';
 
 class AppRepository implements RepopsitoryInterface {
   GraphQLClient? _client;
