@@ -7,9 +7,9 @@ class GetAllTaskResponse {
 
   Data? data;
 
-  factory GetAllTaskResponse.fromJson(Map<String, dynamic> json) =>
+  factory GetAllTaskResponse.fromJson(Map<String, dynamic>? json) =>
       GetAllTaskResponse(
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json!["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {

@@ -5,9 +5,9 @@ class Newtaskresponse {
 
   Data? data;
 
-  factory Newtaskresponse.fromJson(Map<String, dynamic> json) =>
+  factory Newtaskresponse.fromJson(Map<String, dynamic>? json) =>
       Newtaskresponse(
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json!["data"] == null ? null : Data.fromJson(json!["data"]),
       );
 
   Map<String, dynamic> toJson() => {
