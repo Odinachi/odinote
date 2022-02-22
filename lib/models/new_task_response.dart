@@ -7,7 +7,7 @@ class Newtaskresponse {
 
   factory Newtaskresponse.fromJson(Map<String, dynamic>? json) =>
       Newtaskresponse(
-        data: json!["data"] == null ? null : Data.fromJson(json!["data"]),
+        data: json!["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,7 +41,7 @@ class Task {
     this.developerId,
     this.id,
     this.isCompleted,
-    this.title,
+    required this.title,
     this.updatedAt,
   });
 
@@ -50,7 +50,7 @@ class Task {
   String? developerId;
   String? id;
   bool? isCompleted;
-  String? title;
+  String title;
   DateTime? updatedAt;
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(

@@ -7,6 +7,7 @@ class ListCard extends StatelessWidget {
       this.index,
       required this.title,
       required this.isDone,
+      this.onDonePress,
       this.subtitle,
       this.onPress})
       : super(key: key);

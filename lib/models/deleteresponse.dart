@@ -8,7 +8,7 @@ class Deleteresponse {
   Data? data;
 
   factory Deleteresponse.fromJson(Map<String, dynamic>? json) => Deleteresponse(
-        data: json!["data"] == null ? null : Data.fromJson(json!["data"]),
+        data: json!["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {

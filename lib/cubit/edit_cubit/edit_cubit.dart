@@ -27,24 +27,9 @@ class EditScreenCubit extends Cubit<EditScreenState> {
       updateMutation,
       variables: task.toJson(),
     );
-    var _res = await _service.getAll(insertMutation);
     if (_uRes.item1 != null) {
-      if (_res.item1 != null) {
-        List<Task> _com = [];
-        List<Task> _unCom = [];
-        for (var element in _res.item1!.data!.tasks!) {
-          if (element.isCompleted == true) {
-            _com.add(element);
-          } else {
-            _unCom.add(element);
-          }
-        }
-        emit(OnEditUpdateSuccess());
-      } else {
-        emit(OnEditUpdateFailure(error: _uRes.item2));
-      }
     } else {
-      emit(OnEditUpdateFailure(error: _res.item2));
+      emit(OnEditUpdateFailure(error: _uRes.item2));
     }
   }
 

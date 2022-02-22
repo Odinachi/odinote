@@ -33,7 +33,7 @@ dependencies:
   graphql_flutter: 5.0.1
   flutter_bloc: 8.0.1
   tuple: ^2.0.0
-  shimmer: ^2.0.0
+  flutter_shimmer: 2.1.0
   gap:
 
 

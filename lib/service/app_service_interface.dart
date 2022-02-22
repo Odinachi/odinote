@@ -11,5 +11,5 @@ abstract class AppServiceInterface {
       {required Map<String, dynamic> variables});
   Future<Tuple2<Deleteresponse?, String?>> delete(
       {required String query, required String id});
-  Future<Tuple2<GetAllTaskResponse?, String?>> getAll(String query);
+  Future<Tuple2<FetchAllResponse?, String?>> getAll(String query);
 }

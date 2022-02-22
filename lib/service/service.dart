@@ -47,13 +47,13 @@ class AppService implements AppServiceInterface {
   }
 
   @override
-  Future<Tuple2<GetAllTaskResponse?, String?>> getAll(String query) async {
+  Future<Tuple2<FetchAllResponse?, String?>> getAll(String query) async {
     var _res = await _appRepository
         .performQuery(query, variables: {"developer_id": "Odinote"});
     if (_res.hasException == true && _res.data == null) {
       return const Tuple2(null, "Request Failed");
     } else {
-      return Tuple2(GetAllTaskResponse.fromJson(_res.data), null);
+      return Tuple2(FetchAllResponse.fromJson(_res.data), null);
     }
   }
 }

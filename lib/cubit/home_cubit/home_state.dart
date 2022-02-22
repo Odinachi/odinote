@@ -16,6 +16,10 @@ class OnUpdateLoading extends HomeScreenState {
   List<Object> get props => [];
 }
 
+class OnEmpty extends HomeScreenState {
+  List<Object> get props => [];
+}
+
 class OnFailure extends HomeScreenState {
   String? error;
   OnFailure({this.error});

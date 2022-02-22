@@ -10,19 +10,25 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   AppService _service = AppService();
 
   void fetchAllTask() async {
+    print("fetching....");
     emit(OnLoading());
     var _res = await _service.getAll(getAllQuery);
     if (_res.item1 != null) {
       List<Task> _com = [];
       List<Task> _unCom = [];
-      for (var element in _res.item1!.data!.tasks!) {
-        if (element.isCompleted == true) {
-          _com.add(element);
-        } else {
-          _unCom.add(element);
+      if (_res.item1!.tasks!.isNotEmpty) {
+        print('kkkk ${_res.item1!.toJson()}');
+        for (var element in _res.item1!.tasks!) {
+          if (element.isCompleted == true) {
+            _com.add(element);
+          } else {
+            _unCom.add(element);
+          }
         }
+        emit(OnSuccess(completedtasks: _com, unCompletedtasks: _unCom));
+      } else {
+        emit(OnEmpty());
       }
-      emit(OnSuccess(completedtasks: _com, unCompletedtasks: _unCom));
     } else {
       emit(OnFailure(error: _res.item2));
     }
@@ -39,7 +45,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
       if (_res.item1 != null) {
         List<Task> _com = [];
         List<Task> _unCom = [];
-        for (var element in _res.item1!.data!.tasks!) {
+        for (var element in _res.item1!.tasks!) {
           if (element.isCompleted == true) {
             _com.add(element);
           } else {

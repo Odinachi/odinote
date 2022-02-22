@@ -8,7 +8,7 @@ class Updateresponse {
   Data? data;
 
   factory Updateresponse.fromJson(Map<String, dynamic>? json) => Updateresponse(
-        data: json!["data"] == null ? null : Data.fromJson(json!["data"]),
+        data: json!["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
