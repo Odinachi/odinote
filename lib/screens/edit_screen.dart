@@ -294,7 +294,7 @@ class _EditScreen extends StatelessWidget {
                                 controller: _desc,
                                 validator: (text) {
                                   if (text!.isEmpty) {
-                                    return "Title cannot be empty";
+                                    return "Description cannot be empty";
                                   }
                                   return null;
                                 },
