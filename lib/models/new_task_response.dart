@@ -39,7 +39,7 @@ class Task {
     this.createdAt,
     this.description,
     this.developerId,
-    this.id,
+    required this.id,
     this.isCompleted,
     required this.title,
     this.updatedAt,
@@ -48,7 +48,7 @@ class Task {
   DateTime? createdAt;
   String? description;
   String? developerId;
-  String? id;
+  String id;
   bool? isCompleted;
   String title;
   DateTime? updatedAt;

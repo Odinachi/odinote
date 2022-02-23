@@ -22,12 +22,9 @@ class AppRepository implements RepopsitoryInterface {
       {required Map<String, dynamic> variables}) async {
     QueryOptions options =
         QueryOptions(document: gql(query), variables: variables);
-    print("option is ${options}");
 
     final result = await _client!.query(options);
-    print("result is ${result}");
-    print("result is ${result.hasException}");
-
+    print(result);
     return result;
   }
 
@@ -38,9 +35,7 @@ class AppRepository implements RepopsitoryInterface {
         MutationOptions(document: gql(query), variables: variables);
 
     final result = await _client!.mutate(options);
-
     print(result);
-
     return result;
   }
 }

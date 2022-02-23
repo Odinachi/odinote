@@ -12,6 +12,16 @@ class OnEditLoading extends EditScreenState {
   List<Object> get props => [];
 }
 
+class OnEditMode extends EditScreenState {
+  Task? task;
+  OnEditMode({this.task});
+  List<Object> get props => [];
+}
+
+class OnCreateMode extends EditScreenState {
+  List<Object> get props => [];
+}
+
 class OnEditUpdateLoading extends EditScreenState {
   List<Object> get props => [];
 }
@@ -28,7 +38,17 @@ class OnEditUpdateFailure extends EditScreenState {
   List<Object> get props => [];
 }
 
+class OnEditDeleteFailure extends EditScreenState {
+  String? error;
+  OnEditDeleteFailure({this.error});
+  List<Object> get props => [];
+}
+
 class OnEditSuccess extends EditScreenState {
+  List<Object> get props => [];
+}
+
+class OnEditDeleteSuccess extends EditScreenState {
   List<Object> get props => [];
 }
 
