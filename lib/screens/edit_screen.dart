@@ -292,6 +292,12 @@ class _EditScreen extends StatelessWidget {
                               child: TextFormField(
                                 cursorColor: Color(0xff742DDD),
                                 controller: _desc,
+                                validator: (text) {
+                                  if (text!.isEmpty) {
+                                    return "Title cannot be empty";
+                                  }
+                                  return null;
+                                },
                                 maxLines: 200,
                                 decoration: InputDecoration(
                                   hintText: "Describe your task",
