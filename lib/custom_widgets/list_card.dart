@@ -61,20 +61,32 @@ class ListCard extends StatelessWidget {
                 children: [
                   Text(
                     _getHeader(title),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
+                    style: isDone
+                        ? const TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          )
+                        : const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
                   ),
                   SizedBox(
                     height: height * .005,
                   ),
                   Text(
                     _getSubtitle(subtitle ?? ""),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 13,
-                        color: greyColor),
+                    style: isDone
+                        ? const TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 13,
+                            color: greyColor)
+                        : const TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 13,
+                            color: greyColor),
                   ),
                 ],
               ),
