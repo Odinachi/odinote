@@ -236,124 +236,127 @@ class _EditScreen extends StatelessWidget {
               ),
             ),
             isloading == true
-                ? Container(
+                ? SizedBox(
                     height: MediaQuery.of(context).size.height * .8,
                     child: const Center(
                       child: CircularProgressIndicator(),
                     ),
                   )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: SingleChildScrollView(
+                : Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Form(
                         key: _form,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Gap(16),
-                            const Text(
-                              "Title",
-                              style: TextStyle(
-                                fontSize: 16,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Gap(16),
+                              const Text(
+                                "Title",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            Gap(16),
-                            Container(
-                              child: TextFormField(
-                                cursorColor: Color(0xff742DDD),
-                                controller: _title,
-                                validator: (text) {
-                                  if (text!.isEmpty) {
-                                    return "Title cannot be empty";
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  hintText: "What do you want to do?",
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(20.0),
+                              Gap(16),
+                              Container(
+                                child: TextFormField(
+                                  cursorColor: Color(0xff742DDD),
+                                  controller: _title,
+                                  validator: (text) {
+                                    if (text!.isEmpty) {
+                                      return "Title cannot be empty";
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: "What do you want to do?",
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xffF5F5F5),
                                   ),
-                                  filled: true,
-                                  fillColor: Color(0xffF5F5F5),
                                 ),
                               ),
-                            ),
-                            Gap(26),
-                            Text(
-                              "Description",
-                              style: TextStyle(
-                                fontSize: 16,
+                              const Gap(26),
+                              const Text(
+                                "Description",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            Gap(16),
-                            Container(
-                              height: 200,
-                              child: TextFormField(
-                                cursorColor: Color(0xff742DDD),
-                                controller: _desc,
-                                validator: (text) {
-                                  if (text!.isEmpty) {
-                                    return "Description cannot be empty";
-                                  }
-                                  return null;
-                                },
-                                maxLines: 200,
-                                decoration: InputDecoration(
-                                  hintText: "Describe your task",
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(20.0),
+                              const Gap(16),
+                              SizedBox(
+                                height: 200,
+                                child: TextFormField(
+                                  cursorColor: Color(0xff742DDD),
+                                  controller: _desc,
+                                  validator: (text) {
+                                    if (text!.isEmpty) {
+                                      return "Description cannot be empty";
+                                    }
+                                    return null;
+                                  },
+                                  maxLines: 200,
+                                  decoration: InputDecoration(
+                                    hintText: "Describe your task",
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xffF5F5F5),
                                   ),
-                                  filled: true,
-                                  fillColor: Color(0xffF5F5F5),
                                 ),
                               ),
-                            ),
-                            Gap(36),
-                            InkWell(
-                              onTap: () {
-                                if (_form.currentState!.validate()) {
-                                  if (isCreate) {
-                                    NewTaskRequestModel n = NewTaskRequestModel(
-                                        title: _title.text,
-                                        description: _desc.text);
-                                    context
-                                        .read<EditScreenCubit>()
-                                        .createTask(n);
-                                  } else {
-                                    Task t = Task(
-                                        title: _title.text,
-                                        description: _desc.text,
-                                        id: task!.id,
-                                        isCompleted: task!.isCompleted,
-                                        developerId: task!.developerId,
-                                        createdAt: task!.createdAt,
-                                        updatedAt: DateTime.now());
-                                    context
-                                        .read<EditScreenCubit>()
-                                        .updateTask(t);
+                              Gap(36),
+                              InkWell(
+                                onTap: () {
+                                  if (_form.currentState!.validate()) {
+                                    if (isCreate) {
+                                      NewTaskRequestModel n =
+                                          NewTaskRequestModel(
+                                              title: _title.text,
+                                              description: _desc.text);
+                                      context
+                                          .read<EditScreenCubit>()
+                                          .createTask(n);
+                                    } else {
+                                      Task t = Task(
+                                          title: _title.text,
+                                          description: _desc.text,
+                                          id: task!.id,
+                                          isCompleted: task!.isCompleted,
+                                          developerId: task!.developerId,
+                                          createdAt: task!.createdAt,
+                                          updatedAt: DateTime.now());
+                                      context
+                                          .read<EditScreenCubit>()
+                                          .updateTask(t);
+                                    }
                                   }
-                                }
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                child: const Text(
-                                  "Save",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                      color: Colors.white),
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(vertical: 15),
+                                  child: const Text(
+                                    "Save",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                        color: Colors.white),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color(0xff742DDD),
+                                  ),
                                 ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xff742DDD),
-                                ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
