@@ -1,73 +1,83 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:odinote/models/new_task_response.dart';
-import 'package:odinote/models/update_request_model.dart';
-import 'package:odinote/service/mutation_strings.dart';
-import 'package:odinote/service/service.dart';
+import 'package:odinote/service/app_service.dart';
+
+import '../../models/task.dart';
 
 part 'home_state.dart';
 
 class HomeScreenCubit extends Cubit<HomeScreenState> {
   HomeScreenCubit() : super(InitialState());
-  AppService _service = AppService();
+  final TaskService _taskService = TaskService.instance;
 
   void fetchAllTask() async {
     emit(OnLoading());
-    var _res = await _service.getAll(getAllQuery);
-    if (_res.item1 != null) {
-      List<Task> _com = [];
-      List<Task> _unCom = [];
-      if (_res.item1!.tasks!.isNotEmpty) {
-        for (var element in _res.item1!.tasks!) {
-          if (element.isCompleted == true) {
+    var p = await _taskService.getAllTask();
+    if (p != null) {
+      if (p.isNotEmpty) {
+        List<Task> _com = [];
+        List<Task> _unCom = [];
+        for (var element in p) {
+          if (element.done == true) {
             _com.add(element);
           } else {
             _unCom.add(element);
           }
         }
-        emit(OnSuccess(completedtasks: _com, unCompletedtasks: _unCom));
+        emit(OnSuccess(completedTasks: _com, unCompletedTasks: _unCom));
       } else {
         emit(OnEmpty());
       }
     } else {
-      emit(OnFailure(error: _res.item2));
+      emit(OnFailure(error: ""));
     }
   }
 
-  void updateTask(UpdateRequestModel task) async {
-    emit(OnUpdateLoading());
+  void updateTask(Task task) async {
+    // emit(OnUpdateLoading());
 
-    var _uRes = await _service.update(
-      updateMutation,
-      variables: task.toJson(),
-    );
-    if (_uRes.item1 != null) {
-      emit(OnUpdateSuccess());
-      fetchAllTask();
+    var p = await _taskService.update(task);
+    if (p != null) {
+      var p = await _taskService.getAllTask();
+      if (p != null) {
+        if (p.isNotEmpty) {
+          List<Task> _com = [];
+          List<Task> _unCom = [];
+          for (var element in p) {
+            if (element.done == true) {
+              _com.add(element);
+            } else {
+              _unCom.add(element);
+            }
+          }
+          emit(OnSuccess(completedTasks: _com, unCompletedTasks: _unCom));
+        } else {
+          emit(OnEmpty());
+        }
+      }
     } else {
-      emit(OnUpdateFailure(error: _uRes.item2));
+      emit(OnUpdateFailure(error: ""));
     }
   }
 
   void updateList() async {
-    emit(OnUpdateLoading());
-    var _res = await _service.getAll(getAllQuery);
-    if (_res.item1 != null) {
-      List<Task> _com = [];
-      List<Task> _unCom = [];
-      if (_res.item1!.tasks!.isNotEmpty) {
-        for (var element in _res.item1!.tasks!) {
-          if (element.isCompleted == true) {
+    var p = await _taskService.getAllTask();
+    if (p != null) {
+      if (p.isNotEmpty) {
+        List<Task> _com = [];
+        List<Task> _unCom = [];
+        for (var element in p) {
+          if (element.done == true) {
             _com.add(element);
           } else {
             _unCom.add(element);
           }
         }
-        emit(OnSuccess(completedtasks: _com, unCompletedtasks: _unCom));
+        emit(OnSuccess(completedTasks: _com, unCompletedTasks: _unCom));
       } else {
         emit(OnEmpty());
       }
     } else {
-      emit(OnFailure(error: _res.item2));
+      emit(OnFailure(error: ""));
     }
   }
 }

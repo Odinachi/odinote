@@ -26,7 +26,6 @@ class ListCard extends StatelessWidget {
       onTap: onPress,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        height: height * .1,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -138,9 +137,6 @@ class ListCard extends StatelessWidget {
   }
 
   String _getHeader(String s) {
-    if (s == null) {
-      return "";
-    }
     if (s.length > 20) {
       return "${s.substring(0, 20)}...";
     } else {

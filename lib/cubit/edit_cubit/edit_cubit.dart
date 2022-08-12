@@ -1,57 +1,56 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:odinote/models/new_task.dart';
-import 'package:odinote/models/new_task_response.dart';
-import 'package:odinote/models/update_request_model.dart';
-import 'package:odinote/service/mutation_strings.dart';
-import 'package:odinote/service/service.dart';
+import 'package:odinote/models/task.dart';
+import 'package:odinote/service/app_service.dart';
 
 part 'edit_state.dart';
 
 class EditScreenCubit extends Cubit<EditScreenState> {
   EditScreenCubit() : super(InitialEditState());
-  AppService _service = AppService();
+  final TaskService _taskService = TaskService.instance;
 
-  void createTask(NewTaskRequestModel newTaskRequestModel) async {
+  void createTask({required String title, String? desc}) async {
     emit(OnEditLoading());
-    var _res = await _service.create(insertMutation,
-        variables: newTaskRequestModel.toJson());
-    if (_res.item1 != null) {
-      emit(OnEditSuccess());
-    } else {
-      emit(OnEditFailure(error: _res.item2));
-    }
-  }
-
-  void updateTask(Task task) async {
-    emit(OnEditLoading());
-    UpdateRequestModel requestModel = UpdateRequestModel(
-        id: task.id, payload: Payload.fromJson(task.toJson()));
-    var _uRes = await _service.update(
-      updateMutation,
-      variables: requestModel.toJson(),
+    Task _t = Task(title: title, desc: desc, done: false);
+    await _taskService.insert(_t);
+    emit(
+      OnEditSuccess(),
     );
-    if (_uRes.item1 != null) {
-      emit(OnEditUpdateSuccess());
+  }
+
+  void updateTask(
+      {required int id,
+      required String title,
+      String? desc,
+      required bool done}) async {
+    emit(
+      OnEditLoading(),
+    );
+    Task _t = Task(title: title, desc: desc, done: done, id: id);
+    var p = await _taskService.update(_t);
+    if (p != null) {
+      emit(
+        OnEditUpdateSuccess(),
+      );
     } else {
-      emit(OnEditUpdateFailure(error: _uRes.item2));
+      emit(
+        OnEditUpdateFailure(error: ""),
+      );
     }
   }
 
-  void deleteTask(String TasskId) async {
-    emit(OnEditLoading());
-    var _res = await _service.delete(query: deleteMutation, id: TasskId);
-    if (_res.item1 != null) {
-      emit(OnEditDeleteSuccess());
+  void deleteTask(int taskId) async {
+    emit(
+      OnEditLoading(),
+    );
+    var p = await _taskService.delete(taskId);
+    if (p != null) {
+      emit(
+        OnEditDeleteSuccess(),
+      );
     } else {
-      emit(OnEditDeleteFailure(error: _res.item2));
-    }
-  }
-
-  void checkMode(Task? task) {
-    if (task == null) {
-      emit(OnCreateMode());
-    } else {
-      emit(OnEditMode(task: task));
+      emit(
+        OnEditDeleteFailure(error: ""),
+      );
     }
   }
 }

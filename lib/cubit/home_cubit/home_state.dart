@@ -33,15 +33,15 @@ class OnUpdateFailure extends HomeScreenState {
 }
 
 class OnSuccess extends HomeScreenState {
-  List<Task>? completedtasks;
-  List<Task>? unCompletedtasks;
-  OnSuccess({this.completedtasks, this.unCompletedtasks});
+  List<Task>? completedTasks;
+  List<Task>? unCompletedTasks;
+  OnSuccess({this.completedTasks, this.unCompletedTasks});
   List<Object> get props => [];
 }
 
 class OnUpdateSuccess extends HomeScreenState {
-  List<Task>? completedtasks;
-  List<Task>? unCompletedtasks;
-  OnUpdateSuccess({this.completedtasks, this.unCompletedtasks});
+  List<Task>? completedTasks;
+  List<Task>? unCompletedTasks;
+  OnUpdateSuccess({this.completedTasks, this.unCompletedTasks});
   List<Object> get props => [];
 }
