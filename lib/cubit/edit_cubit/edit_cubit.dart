@@ -5,20 +5,25 @@ import 'package:odinote/service/app_service.dart';
 part 'edit_state.dart';
 
 class EditScreenCubit extends Cubit<EditScreenState> {
-  EditScreenCubit() : super(InitialEditState());
-  final TaskService _taskService = TaskService.instance;
+  late final TaskService taskService;
 
-  void createTask({required String title, String? desc}) async {
+  EditScreenCubit(TaskService service) : super(InitialEditState()) {
+    taskService = service;
+  }
+
+  void createTask(
+      {TaskService? taskService, required String title, String? desc}) async {
     emit(OnEditLoading());
     Task _t = Task(title: title, desc: desc, done: false);
-    await _taskService.insert(_t);
+    await this.taskService.insert(_t);
     emit(
       OnEditSuccess(),
     );
   }
 
   void updateTask(
-      {required int id,
+      {TaskService? taskService,
+      required int id,
       required String title,
       String? desc,
       required bool done}) async {
@@ -26,7 +31,7 @@ class EditScreenCubit extends Cubit<EditScreenState> {
       OnEditLoading(),
     );
     Task _t = Task(title: title, desc: desc, done: done, id: id);
-    var p = await _taskService.update(_t);
+    var p = await this.taskService.update(_t);
     if (p != null) {
       emit(
         OnEditUpdateSuccess(),
@@ -38,11 +43,11 @@ class EditScreenCubit extends Cubit<EditScreenState> {
     }
   }
 
-  void deleteTask(int taskId) async {
+  void deleteTask({TaskService? taskService, required int taskId}) async {
     emit(
       OnEditLoading(),
     );
-    var p = await _taskService.delete(taskId);
+    var p = await this.taskService.delete(taskId);
     if (p != null) {
       emit(
         OnEditDeleteSuccess(),

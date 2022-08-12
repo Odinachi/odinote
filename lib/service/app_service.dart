@@ -11,13 +11,7 @@ class TaskService {
   Future initialize(String path) async {
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-      return await db.execute('''
-create table $tableTodo ( 
-  $columnId integer primary key autoincrement, 
-  $columnTitle text not null,
-  $columnDesc text,
-  $columnDone integer not null)
-''');
+      return await db.execute(databaseRules);
     });
   }
 

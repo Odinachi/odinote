@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:odinote/constants.dart';
 import 'package:odinote/cubit/edit_cubit/edit_cubit.dart';
 import 'package:odinote/models/task.dart';
+import 'package:odinote/service/app_service.dart';
 
 class EditScreen extends StatelessWidget {
   EditScreen({Key? key, this.task}) : super(key: key);
@@ -12,7 +13,7 @@ class EditScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => EditScreenCubit(),
+        create: (_) => EditScreenCubit(TaskService.instance),
         child: _EditScreen(
           task: task,
         ));
@@ -109,7 +110,9 @@ class _EditScreen extends StatelessWidget {
                   if (task != null)
                     InkWell(
                       onTap: () {
-                        context.read<EditScreenCubit>().deleteTask(task!.id!);
+                        context
+                            .read<EditScreenCubit>()
+                            .deleteTask(taskId: task!.id!);
                       },
                       child: const Icon(
                         Icons.delete,

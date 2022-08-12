@@ -9,6 +9,13 @@ const String columnId = '_id';
 const String columnTitle = 'title';
 const String columnDesc = 'description';
 const String columnDone = 'done';
+const String databaseRules = '''
+create table $tableTodo ( 
+  $columnId integer primary key autoincrement, 
+  $columnTitle text not null,
+  $columnDesc text,
+  $columnDone integer not null)
+''';
 
 showSnackBar(BuildContext ctx, bool isSuccess, {String? message}) {
   ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
