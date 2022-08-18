@@ -4,6 +4,7 @@ import 'package:odinote/constants.dart';
 import 'package:odinote/cubit/home_cubit/home_cubit.dart';
 import 'package:odinote/custom_widgets/list_card.dart';
 import 'package:odinote/screens/edit_screen.dart';
+import 'package:odinote/service/app_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,7 +13,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider<HomeScreenCubit>(
-        create: (context) => HomeScreenCubit()..fetchAllTask(),
+        create: (context) =>
+            HomeScreenCubit(TaskService.instance)..fetchAllTask(),
         child: _HomeScreen(),
       ),
     );

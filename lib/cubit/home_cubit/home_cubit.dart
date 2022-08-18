@@ -6,12 +6,15 @@ import '../../models/task.dart';
 part 'home_state.dart';
 
 class HomeScreenCubit extends Cubit<HomeScreenState> {
-  HomeScreenCubit() : super(InitialState());
-  final TaskService _taskService = TaskService.instance;
+  late final TaskService taskService;
+
+  HomeScreenCubit(TaskService service) : super(InitialState()) {
+    taskService = service;
+  }
 
   void fetchAllTask() async {
     emit(OnLoading());
-    var p = await _taskService.getAllTask();
+    var p = await this.taskService.getAllTask();
     if (p != null) {
       if (p.isNotEmpty) {
         List<Task> _com = [];
@@ -35,9 +38,9 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   void updateTask(Task task) async {
     // emit(OnUpdateLoading());
 
-    var p = await _taskService.update(task);
+    var p = await this.taskService.update(task);
     if (p != null) {
-      var p = await _taskService.getAllTask();
+      var p = await this.taskService.getAllTask();
       if (p != null) {
         if (p.isNotEmpty) {
           List<Task> _com = [];
@@ -60,7 +63,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   }
 
   void updateList() async {
-    var p = await _taskService.getAllTask();
+    var p = await this.taskService.getAllTask();
     if (p != null) {
       if (p.isNotEmpty) {
         List<Task> _com = [];
